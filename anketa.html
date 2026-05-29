@@ -250,6 +250,46 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
+
+    .contacts-block {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      padding: 24px 20px;
+      margin-bottom: 32px;
+    }
+
+    .contacts-block .contacts-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #aaa;
+      margin-bottom: 16px;
+    }
+
+    .contact-field { margin-bottom: 14px; }
+
+    .contact-field label {
+      display: block;
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .contact-field input {
+      width: 100%;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      color: #f0f0f0;
+      font-size: 14px;
+      font-family: inherit;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .contact-field input:focus { border-color: #e040fb; }
+    .contact-field input::placeholder { color: #444; }
   </style>
 </head>
 <body>
@@ -266,6 +306,22 @@
 
   <div class="container">
 
+
+    <div class="contacts-block">
+      <div class="contacts-title">Куда отправить результаты диагностики?</div>
+      <div class="contact-field">
+        <label for="c-name">Имя</label>
+        <input type="text" id="c-name" placeholder="Как тебя зовут?">
+      </div>
+      <div class="contact-field">
+        <label for="c-phone">Телефон / WhatsApp</label>
+        <input type="tel" id="c-phone" placeholder="+49 000 000 0000">
+      </div>
+      <div class="contact-field">
+        <label for="c-email">Email</label>
+        <input type="email" id="c-email" placeholder="твой@email.com">
+      </div>
+    </div>
 
     <div class="section-title">8 вопросов · ~5 минут · можно голосом</div>
 
@@ -290,6 +346,7 @@
 
   <script>
     const PROXY_URL = 'https://anketa.n-yabonzhy.workers.dev';
+    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxTaqdCRSu1b7cI3Ayf2fXBLclq29wE-Ies6Djzv9Y1X92SUNr9NHBh368StH7OFJggWg/exec';
 
     const QUESTIONS = [
       "Чем занимается твой бизнес или проект? Коротко — своими словами.",
@@ -483,7 +540,14 @@
 
     // Submit
     async function submitForm() {
-      const apiKey = null; // ключ хранится на сервере
+      const name  = document.getElementById('c-name').value.trim();
+      const phone = document.getElementById('c-phone').value.trim();
+      const email = document.getElementById('c-email').value.trim();
+
+      if (!name && !phone && !email) {
+        alert('Заполни хотя бы одно контактное поле — имя, телефон или email.');
+        return;
+      }
 
       const answers = QUESTIONS.map((q, i) => {
         const val = document.getElementById('q' + (i + 1)).value.trim();
@@ -541,6 +605,26 @@
         resultBox.className = 'result-box';
         resultBox.textContent = text;
         resultContent.appendChild(resultBox);
+
+        // Отправка в Google Sheets
+        const rowData = {
+          timestamp: new Date().toISOString(),
+          name, phone, email,
+          q1:  document.getElementById('q1').value.trim(),
+          q2:  document.getElementById('q2').value.trim(),
+          q3:  document.getElementById('q3').value.trim(),
+          q4:  document.getElementById('q4').value.trim(),
+          q5:  document.getElementById('q5').value.trim(),
+          q6:  document.getElementById('q6').value.trim(),
+          q7:  document.getElementById('q7').value.trim(),
+          q8:  document.getElementById('q8').value.trim(),
+          diagnosis: text
+        };
+        fetch(SHEETS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(rowData)
+        }).catch(() => {}); // тихо, не мешаем пользователю
 
       } catch (e) {
         resultContent.textContent = '';
