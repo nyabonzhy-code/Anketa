@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-диагностика бизнеса — Digital Flow mit Lia Lap</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f0f0f;
+      color: #f0f0f0;
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 48px 24px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ffffff10;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: #e040fb20;
+      color: #e040fb;
+      border: 1px solid #e040fb40;
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: #aaa;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+
+    .case-card {
+      background: #ffffff08;
+      border: 1px solid #ffffff15;
+      border-radius: 12px;
+      padding: 16px 20px;
+      max-width: 520px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .case-card .label {
+      font-size: 11px;
+      color: #e040fb;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .case-card p {
+      font-size: 13px;
+      color: #ccc;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+
+    .question-block { margin-bottom: 24px; }
+
+    .question-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #eee;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .question-num { color: #e040fb; margin-right: 6px; }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    textarea {
+      flex: 1;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      color: #f0f0f0;
+      font-size: 14px;
+      font-family: inherit;
+      padding: 12px 14px;
+      resize: vertical;
+      min-height: 72px;
+      outline: none;
+      transition: border-color 0.2s;
+      line-height: 1.5;
+    }
+
+    textarea:focus { border-color: #e040fb; }
+    textarea.recording { border-color: #ff4444; background: #1f1010; }
+    textarea.transcribing { border-color: #f0a500; }
+
+    .mic-btn {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 10px;
+      border: 1px solid #2a2a2a;
+      background: #1a1a1a;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .mic-btn:hover { border-color: #e040fb; background: #e040fb15; }
+    .mic-btn.recording { background: #ff444420; border-color: #ff4444; animation: pulse 1s infinite; }
+    .mic-btn.transcribing { background: #f0a50020; border-color: #f0a500; }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 #ff444440; }
+      50% { box-shadow: 0 0 0 6px #ff444410; }
+    }
+
+    .mic-hint {
+      font-size: 11px;
+      color: #555;
+      margin-top: 5px;
+      text-align: right;
+    }
+
+    .submit-area {
+      margin-top: 36px;
+      text-align: center;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #e040fb, #7c4dff);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 40px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      max-width: 400px;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover { opacity: 0.9; }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    #result-section { display: none; margin-top: 40px; }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .result-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .result-header p { font-size: 13px; color: #888; }
+
+    .result-box {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      padding: 28px 24px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: #e8e8e8;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .loading-box {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #2a2a2a;
+      border-top-color: #e040fb;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { font-size: 14px; color: #888; }
+
+    .error-box {
+      background: #1f0f0f;
+      border: 1px solid #ff444440;
+      border-radius: 12px;
+      padding: 20px;
+      color: #ff8888;
+      font-size: 14px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #1f1f1f;
+      margin: 32px 0;
+    }
+
+    .section-title {
+      font-size: 11px;
+      color: #555;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="hero-tag">Бесплатная диагностика</div>
+    <h1>Узнай, что в твоём бизнесе<br>уже сейчас можно передать AI</h1>
+    <p>Каждую неделю ты делаешь одни и те же задачи руками — и где-то в голове мысль: <em>это можно было бы не делать самому</em>. Ответь на 8 вопросов и получишь персональный разбор.</p>
+    <div class="case-card">
+      <div class="label">Кейс</div>
+      <p>Онлайн-школа получала 40+ сообщений в неделю и отвечала на каждое вручную. Настроила AI-воронку в Direct — первый ответ приходит автоматически за 10 секунд, ни одно сообщение больше не теряется. Владелец освободил 6 часов в неделю.</p>
+    </div>
+  </div>
+
+  <div class="container">
+
+
+    <div class="section-title">8 вопросов · ~5 минут · можно голосом</div>
+
+    <div id="questions"></div>
+
+    <div class="submit-area">
+      <button class="btn-submit" id="submit-btn" onclick="submitForm()">
+        Получить AI-диагностику →
+      </button>
+    </div>
+
+    <div id="result-section">
+      <hr class="divider">
+      <div class="result-header">
+        <h2>Твоя персональная диагностика</h2>
+        <p>На основе твоих ответов</p>
+      </div>
+      <div id="result-content"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const PROXY_URL = 'https://anketa.n-yabonzhy.workers.dev';
+
+    const QUESTIONS = [
+      "Чем занимается твой бизнес или проект? Коротко — своими словами.",
+      "Что ты делаешь каждую неделю снова и снова? Перечисли всё, что приходит в голову — без фильтра.",
+      "Какое из этих дел съедает больше всего времени?",
+      "Есть задача, от которой зависят клиенты или деньги — но она регулярно запаздывает? Если да — что это?",
+      "Что ты делаешь руками и хотел бы никогда больше этого не делать?",
+      "Какими инструментами уже пользуешься? (Instagram, WhatsApp, таблицы, Notion, почта — просто перечисли)",
+      "Сколько часов в неделю ты тратишь на то, что мог бы не делать руками?",
+      "Работаешь с клиентами прямо сейчас — или проект пока в стадии запуска?"
+    ];
+
+    const SYSTEM_PROMPT = `Ты эксперт по AI-автоматизации для малого бизнеса и блогеров.
+
+Ниже — ответы предпринимателя на диагностическую анкету.
+Проанализируй и выдай 3–5 конкретных направлений.
+
+Правила:
+- Только то, что написал клиент. Не придумывай.
+- Приоритет: (1) влияние на деньги/клиентов, (2) инструменты уже есть.
+- Запрещено: "оптимизировать", "улучшить", "повысить эффективность", "синергия".
+- Пиши языком клиента, не технически.
+- Если в ответе на вопрос 8 бизнес в стадии запуска — отметь в начале: диагностика предварительная.
+
+ТРИГГЕР: если в ответах упоминается Instagram, Direct, переписка с клиентами или ответы на заявки — первым направлением обязательно указывай "Instagram Direct-воронка" и сразу после него вставляй карточку продукта дословно.
+
+КАРТОЧКА ПРОДУКТА (вставлять дословно при триггере):
+---
+📌 Instagram Direct-воронка
+Настройка AI-ассистента в Instagram Direct под твой бизнес
+
+Что входит:
+• Настройка автоматических ответов на входящие сообщения в Direct
+• Сценарий воронки: приветствие → выявление потребности → нужный следующий шаг
+• Подключение к твоему Instagram-аккаунту и тест на живых сообщениях
+• Инструкция: что менять самостоятельно после сдачи
+
+Что НЕ входит: создание контента, настройка рекламы
+Срок: 3 рабочих дня после получения доступа
+---
+
+Формат каждого направления:
+
+Направление N: [Название]
+— Что автоматизировать: [действие]
+— Что сейчас делается руками: [что и сколько времени]
+— Что получит бизнес: [конкретный результат]
+— Сложность: Просто / Средне / Сложно
+— Первый шаг: [одно действие на 1–2 дня]
+— Где застревают при самостоятельной настройке: [конкретная техническая или логическая ловушка]
+
+Итог: "Быстрее всего результат даст: [N] — потому что [причина]."
+
+Переход: "Если хочешь разобрать [направление] подробнее — напиши мне в Direct, разберём твой случай."`;
+
+    // Build question blocks
+    const questionsDiv = document.getElementById('questions');
+    QUESTIONS.forEach((q, i) => {
+      const num = i + 1;
+
+      const block = document.createElement('div');
+      block.className = 'question-block';
+
+      const label = document.createElement('div');
+      label.className = 'question-label';
+      const numSpan = document.createElement('span');
+      numSpan.className = 'question-num';
+      numSpan.textContent = num + '.';
+      label.appendChild(numSpan);
+      label.appendChild(document.createTextNode(q));
+
+      const row = document.createElement('div');
+      row.className = 'input-row';
+
+      const ta = document.createElement('textarea');
+      ta.id = 'q' + num;
+      ta.placeholder = 'Напиши или нажми 🎙 и говори...';
+
+      const btn = document.createElement('button');
+      btn.className = 'mic-btn';
+      btn.id = 'mic' + num;
+      btn.title = 'Говорить';
+      btn.textContent = '🎙';
+      btn.addEventListener('click', () => toggleRecording(num));
+
+      row.appendChild(ta);
+      row.appendChild(btn);
+
+      const hint = document.createElement('div');
+      hint.className = 'mic-hint';
+      hint.id = 'hint' + num;
+
+      block.appendChild(label);
+      block.appendChild(row);
+      block.appendChild(hint);
+      questionsDiv.appendChild(block);
+    });
+
+    // Voice recording
+    let activeRecorder = null;
+    let activeQuestion = null;
+    let audioChunks = [];
+
+    async function toggleRecording(num) {
+      const apiKey = null; // ключ хранится на сервере
+
+      if (activeQuestion === num && activeRecorder && activeRecorder.state === 'recording') {
+        activeRecorder.stop();
+        return;
+      }
+
+      if (activeRecorder && activeRecorder.state === 'recording') {
+        activeRecorder.stop();
+        await new Promise(r => setTimeout(r, 300));
+      }
+
+      const textarea = document.getElementById('q' + num);
+      const micBtn = document.getElementById('mic' + num);
+      const hint = document.getElementById('hint' + num);
+
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (e) {
+        alert('Нет доступа к микрофону. Разреши доступ в браузере.');
+        return;
+      }
+
+      audioChunks = [];
+      activeQuestion = num;
+
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+      activeRecorder = new MediaRecorder(stream, { mimeType });
+
+      activeRecorder.ondataavailable = e => {
+        if (e.data.size > 0) audioChunks.push(e.data);
+      };
+
+      activeRecorder.onstart = () => {
+        micBtn.classList.add('recording');
+        micBtn.textContent = '⏹';
+        textarea.classList.add('recording');
+        hint.textContent = 'Запись... нажми ⏹ чтобы остановить';
+      };
+
+      activeRecorder.onstop = async () => {
+        stream.getTracks().forEach(t => t.stop());
+        micBtn.classList.remove('recording');
+        micBtn.classList.add('transcribing');
+        micBtn.textContent = '⏳';
+        textarea.classList.remove('recording');
+        textarea.classList.add('transcribing');
+        hint.textContent = 'Транскрибирую...';
+
+        const blob = new Blob(audioChunks, { type: mimeType });
+        const ext = mimeType.includes('webm') ? 'webm' : 'mp4';
+
+        try {
+          const formData = new FormData();
+          formData.append('file', blob, 'audio.' + ext);
+          formData.append('model', 'whisper-1');
+          formData.append('language', 'ru');
+
+          const res = await fetch(PROXY_URL + '/transcribe', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.error?.message || 'Ошибка API');
+          }
+
+          const data = await res.json();
+          const existing = textarea.value.trim();
+          textarea.value = existing ? existing + ' ' + data.text : data.text;
+          hint.textContent = '✓ Готово — можешь отредактировать';
+        } catch (e) {
+          hint.textContent = '⚠ Ошибка: ' + e.message;
+        } finally {
+          micBtn.classList.remove('transcribing');
+          micBtn.textContent = '🎙';
+          textarea.classList.remove('transcribing');
+          activeQuestion = null;
+          activeRecorder = null;
+        }
+      };
+
+      activeRecorder.start();
+    }
+
+    // Submit
+    async function submitForm() {
+      const apiKey = null; // ключ хранится на сервере
+
+      const answers = QUESTIONS.map((q, i) => {
+        const val = document.getElementById('q' + (i + 1)).value.trim();
+        return 'Вопрос ' + (i + 1) + ': ' + q + '\nОтвет: ' + (val || '(не заполнено)');
+      }).join('\n\n');
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Анализирую...';
+
+      const resultSection = document.getElementById('result-section');
+      const resultContent = document.getElementById('result-content');
+      resultSection.style.display = 'block';
+
+      // Show loading using safe DOM
+      resultContent.textContent = '';
+      const loadingBox = document.createElement('div');
+      loadingBox.className = 'loading-box';
+      const spinner = document.createElement('div');
+      spinner.className = 'spinner';
+      const loadingText = document.createElement('div');
+      loadingText.className = 'loading-text';
+      loadingText.textContent = 'AI анализирует твои ответы...';
+      loadingBox.appendChild(spinner);
+      loadingBox.appendChild(loadingText);
+      resultContent.appendChild(loadingBox);
+
+      resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        const res = await fetch(PROXY_URL + '/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'gpt-4o',
+            messages: [
+              { role: 'system', content: SYSTEM_PROMPT },
+              { role: 'user', content: '[ОТВЕТЫ КЛИЕНТА]\n' + answers + '\n[/ОТВЕТЫ КЛИЕНТА]' }
+            ],
+            temperature: 0.7,
+            max_tokens: 2000
+          })
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error?.message || 'Ошибка API');
+        }
+
+        const data = await res.json();
+        const text = data.choices[0].message.content;
+
+        resultContent.textContent = '';
+        const resultBox = document.createElement('div');
+        resultBox.className = 'result-box';
+        resultBox.textContent = text;
+        resultContent.appendChild(resultBox);
+
+      } catch (e) {
+        resultContent.textContent = '';
+        const errBox = document.createElement('div');
+        errBox.className = 'error-box';
+        errBox.textContent = '⚠ Ошибка: ' + e.message + '\n\nПроверь API-ключ и подключение к интернету.';
+        resultContent.appendChild(errBox);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Получить AI-диагностику →';
+      }
+    }
+  </script>
+
+</body>
+</html>
