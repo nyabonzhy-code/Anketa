@@ -193,18 +193,6 @@
 
     .result-header p { font-size: 13px; color: #888; }
 
-    .result-box {
-      background: #141414;
-      border: 1px solid #2a2a2a;
-      border-radius: 14px;
-      padding: 28px 24px;
-      font-size: 14px;
-      line-height: 1.75;
-      color: #e8e8e8;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
     .loading-box {
       background: #141414;
       border: 1px solid #2a2a2a;
@@ -250,6 +238,262 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
+
+    /* ── Визуальная диагностика ── */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .summary-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .summary-card .s-icon { font-size: 24px; margin-bottom: 8px; }
+    .summary-card .s-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .summary-card .s-label { font-size: 11px; color: #666; }
+
+    .question-hint {
+      font-size: 12px;
+      color: #555;
+      margin-top: 6px;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: 100px;
+      border: 1px solid #2a2a2a;
+      background: #1a1a1a;
+      color: #aaa;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .chip:hover { border-color: #e040fb60; color: #ddd; }
+
+    .chip.selected {
+      border-color: #e040fb;
+      background: #e040fb18;
+      color: #e040fb;
+      font-weight: 600;
+    }
+
+    .chip-other-input {
+      width: 100%;
+      margin-top: 8px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      color: #f0f0f0;
+      font-size: 14px;
+      font-family: inherit;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      display: none;
+    }
+
+    .chip-other-input:focus { border-color: #e040fb; }
+
+    .direction-card {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .direction-card.trigger {
+      border-color: #e040fb40;
+      background: linear-gradient(135deg, #1a0a1f 0%, #141414 60%);
+    }
+
+    .direction-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: #2a2a2a;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .direction-card.trigger::before { background: linear-gradient(180deg, #e040fb, #7c4dff); }
+    .direction-card.d2::before { background: #00bcd4; }
+    .direction-card.d3::before { background: #4caf50; }
+    .direction-card.d4::before { background: #ff9800; }
+    .direction-card.d5::before { background: #f44336; }
+
+    .dir-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .dir-num {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 50%;
+      background: #e040fb20;
+      color: #e040fb;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .direction-card.d2 .dir-num { background: #00bcd420; color: #00bcd4; }
+    .direction-card.d3 .dir-num { background: #4caf5020; color: #4caf50; }
+    .direction-card.d4 .dir-num { background: #ff980020; color: #ff9800; }
+    .direction-card.d5 .dir-num { background: #f4433620; color: #f44336; }
+
+    .dir-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    .diff-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .diff-easy   { background: #4caf5020; color: #4caf50; border: 1px solid #4caf5040; }
+    .diff-medium { background: #ff980020; color: #ff9800; border: 1px solid #ff980040; }
+    .diff-hard   { background: #f4433620; color: #f44336; border: 1px solid #f4433640; }
+
+    .gain-box {
+      background: #ffffff08;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: #ddd;
+      line-height: 1.5;
+    }
+
+    .gain-box .gain-label {
+      font-size: 10px;
+      color: #888;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .dir-rows { display: flex; flex-direction: column; gap: 8px; }
+
+    .dir-row {
+      display: flex;
+      gap: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #bbb;
+    }
+
+    .dir-row .row-label {
+      color: #666;
+      white-space: nowrap;
+      min-width: 80px;
+      font-size: 12px;
+    }
+
+    .product-card-box {
+      background: #e040fb10;
+      border: 1px solid #e040fb30;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    .product-card-box .pc-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e040fb;
+      margin-bottom: 8px;
+    }
+
+    .conclusion-box {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 8px;
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .cta-box {
+      text-align: center;
+      margin-top: 32px;
+      padding: 28px 20px;
+      background: linear-gradient(135deg, #1a0a1f, #0a0a1f);
+      border: 1px solid #e040fb30;
+      border-radius: 16px;
+    }
+
+    .cta-box h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .cta-box p {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, #e040fb, #7c4dff);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 14px 36px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: opacity 0.2s;
+    }
+
+    .btn-cta:hover { opacity: 0.9; }
 
     .contacts-block {
       background: #1a1a1a;
@@ -323,7 +567,7 @@
       </div>
     </div>
 
-    <div class="section-title">8 вопросов · ~5 минут · можно голосом</div>
+    <div class="section-title">7 вопросов · ~5 минут · можно голосом</div>
 
     <div id="questions"></div>
 
@@ -349,58 +593,51 @@
     const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxTaqdCRSu1b7cI3Ayf2fXBLclq29wE-Ies6Djzv9Y1X92SUNr9NHBh368StH7OFJggWg/exec';
 
     const QUESTIONS = [
-      "Чем занимается ваш бизнес или проект? Коротко — своими словами.",
-      "Что вы делаете каждую неделю снова и снова? Перечислите всё, что приходит в голову — без фильтра.",
-      "Какое из этих дел съедает больше всего времени?",
-      "Есть задача, от которой зависят клиенты или деньги — но она регулярно запаздывает? Если да — что это?",
-      "Что вы делаете руками и хотели бы никогда больше этого не делать?",
-      "Какими инструментами уже пользуетесь? (Instagram, WhatsApp, таблицы, Notion, почта — просто перечислите)",
-      "Сколько часов в неделю вы тратите на то, что могли бы не делать руками?",
-      "Работаете с клиентами прямо сейчас — или проект пока в стадии запуска?"
+      {
+        text: "Чем занимается ваш бизнес или проект? Коротко — своими словами."
+      },
+      {
+        text: "Что вы делаете каждую неделю снова и снова? Перечислите всё, что приходит в голову — без фильтра.",
+        hint: "Например: отвечаю на сообщения, пишу посты, выставляю счета, созваниваюсь с клиентами, веду таблицы, ищу подрядчиков..."
+      },
+      {
+        text: "Какое из этих дел съедает больше всего времени?",
+        hint: "Не думайте долго — первое, что пришло в голову, скорее всего и есть правда."
+      },
+      {
+        text: "Есть задача, от которой зависят клиенты или деньги — но она регулярно запаздывает? Если да — что это?",
+        hint: "Например: выставить счёт, ответить на заявку, опубликовать пост, напомнить клиенту о встрече..."
+      },
+      {
+        text: "Что вы делаете руками и хотели бы никогда больше этого не делать?",
+        hint: "Например: копирую данные из одного места в другое, вручную пишу одно и то же разным людям, ищу информацию по переписке..."
+      },
+      {
+        text: "Какими инструментами вы пользуетесь в работе?",
+        hint: "Отметьте всё подходящее — это поможет понять, что уже можно автоматизировать прямо сейчас.",
+        type: "chips",
+        options: ["Instagram", "WhatsApp", "Telegram", "Email / почта", "Google Таблицы", "Notion", "CRM-система", "Другое"]
+      },
+      {
+        text: "Сколько времени в день уходит на рутинные, повторяющиеся действия?",
+        hint: "Примерно: 20 минут? Час? Больше двух? Точность не важна."
+      },
     ];
 
-    const SYSTEM_PROMPT = `Ты эксперт по AI-автоматизации для малого бизнеса и блогеров.
-
-Ниже — ответы предпринимателя на диагностическую анкету.
-Проанализируй и выдай 3–5 конкретных направлений.
+    const SYSTEM_PROMPT = `Вы эксперт по AI-автоматизации для малого бизнеса и блогеров. Проанализируйте ответы предпринимателя и выдайте 3–5 направлений автоматизации.
 
 Правила:
-- Только то, что написал клиент. Не придумывай.
+- Только то, что написал клиент. Не придумывайте.
 - Приоритет: (1) влияние на деньги/клиентов, (2) инструменты уже есть.
 - Запрещено: "оптимизировать", "улучшить", "повысить эффективность", "синергия".
-- Пиши языком клиента, не технически.
-- Если в ответе на вопрос 8 бизнес в стадии запуска — отметь в начале: диагностика предварительная.
+- Обращайтесь к клиенту на ВЫ. Пишите языком клиента, не технически.
+- Если из ответов видно, что бизнес в стадии запуска — preliminary: true.
+- ТРИГГЕР: если упоминается Instagram/Direct/переписка — первое направление "Instagram Direct-воронка", is_trigger: true.
 
-ТРИГГЕР: если в ответах упоминается Instagram, Direct, переписка с клиентами или ответы на заявки — первым направлением обязательно указывай "Instagram Direct-воронка" и сразу после него вставляй карточку продукта дословно.
+Верните ТОЛЬКО валидный JSON без markdown, строго по этой схеме:
+{"preliminary":false,"summary":{"hours_saved":"оценка экономии времени","main_gain":"главный выигрыш одной фразой","quick_win":"название быстрейшего направления"},"directions":[{"num":1,"title":"Название","is_trigger":false,"automate":"что автоматизировать","currently_manual":"что делается руками и сколько времени","client_gains":"что получит бизнес конкретно","difficulty":"Просто","first_step":"одно действие на 1–2 дня","diy_trap":"где застревают при DIY","product_card":null}],"conclusion":"Быстрее всего результат даст N — потому что...","next_step":"конкретный призыв к действию"}
 
-КАРТОЧКА ПРОДУКТА (вставлять дословно при триггере):
----
-📌 Instagram Direct-воронка
-Настройка AI-ассистента в Instagram Direct под твой бизнес
-
-Что входит:
-• Настройка автоматических ответов на входящие сообщения в Direct
-• Сценарий воронки: приветствие → выявление потребности → нужный следующий шаг
-• Подключение к твоему Instagram-аккаунту и тест на живых сообщениях
-• Инструкция: что менять самостоятельно после сдачи
-
-Что НЕ входит: создание контента, настройка рекламы
-Срок: 3 рабочих дня после получения доступа
----
-
-Формат каждого направления:
-
-Направление N: [Название]
-— Что автоматизировать: [действие]
-— Что сейчас делается руками: [что и сколько времени]
-— Что получит бизнес: [конкретный результат]
-— Сложность: Просто / Средне / Сложно
-— Первый шаг: [одно действие на 1–2 дня]
-— Где застревают при самостоятельной настройке: [конкретная техническая или логическая ловушка]
-
-Итог: "Быстрее всего результат даст: [N] — потому что [причина]."
-
-Переход: "Если хочешь разобрать [направление] подробнее — напиши мне в Direct, разберём твой случай."`;
+Если is_trigger true — product_card: {"title":"Instagram Direct-воронка","subtitle":"Настройка AI-ассистента в Instagram Direct под ваш бизнес","includes":["Настройка автоматических ответов на входящие сообщения","Сценарий воронки: приветствие → потребность → следующий шаг","Подключение к вашему Instagram и тест на живых сообщениях","Инструкция: что менять самостоятельно после сдачи"],"excludes":"Создание контента, настройка рекламы","deadline":"3 рабочих дня после получения доступа"}`;
 
     // Build question blocks
     const questionsDiv = document.getElementById('questions');
@@ -410,38 +647,82 @@
       const block = document.createElement('div');
       block.className = 'question-block';
 
+      // Label
       const label = document.createElement('div');
       label.className = 'question-label';
       const numSpan = document.createElement('span');
       numSpan.className = 'question-num';
       numSpan.textContent = num + '.';
       label.appendChild(numSpan);
-      label.appendChild(document.createTextNode(q));
-
-      const row = document.createElement('div');
-      row.className = 'input-row';
-
-      const ta = document.createElement('textarea');
-      ta.id = 'q' + num;
-      ta.placeholder = 'Напишите или нажмите 🎙 и говорите...';
-
-      const btn = document.createElement('button');
-      btn.className = 'mic-btn';
-      btn.id = 'mic' + num;
-      btn.title = 'Говорить';
-      btn.textContent = '🎙';
-      btn.addEventListener('click', () => toggleRecording(num));
-
-      row.appendChild(ta);
-      row.appendChild(btn);
-
-      const hint = document.createElement('div');
-      hint.className = 'mic-hint';
-      hint.id = 'hint' + num;
-
+      label.appendChild(document.createTextNode(q.text));
       block.appendChild(label);
-      block.appendChild(row);
-      block.appendChild(hint);
+
+      // Hint under label
+      if (q.hint) {
+        const hintEl = document.createElement('div');
+        hintEl.className = 'question-hint';
+        hintEl.textContent = q.hint;
+        block.appendChild(hintEl);
+      }
+
+      if (q.type === 'chips') {
+        // Chip selector
+        const grid = document.createElement('div');
+        grid.className = 'chips-grid';
+        grid.id = 'chips' + num;
+
+        let otherInput = null;
+
+        q.options.forEach(opt => {
+          const chip = document.createElement('div');
+          chip.className = 'chip';
+          chip.textContent = opt;
+          chip.dataset.value = opt;
+          chip.addEventListener('click', () => {
+            chip.classList.toggle('selected');
+            if (opt === 'Другое' && otherInput) {
+              otherInput.style.display = chip.classList.contains('selected') ? 'block' : 'none';
+            }
+          });
+          grid.appendChild(chip);
+        });
+
+        block.appendChild(grid);
+
+        // "Другое" text input
+        otherInput = document.createElement('input');
+        otherInput.type = 'text';
+        otherInput.className = 'chip-other-input';
+        otherInput.id = 'q' + num + '_other';
+        otherInput.placeholder = 'Укажите свой вариант...';
+        block.appendChild(otherInput);
+
+      } else {
+        // Textarea + mic
+        const row = document.createElement('div');
+        row.className = 'input-row';
+
+        const ta = document.createElement('textarea');
+        ta.id = 'q' + num;
+        ta.placeholder = 'Напишите или нажмите 🎙 и говорите...';
+
+        const btn = document.createElement('button');
+        btn.className = 'mic-btn';
+        btn.id = 'mic' + num;
+        btn.title = 'Говорить';
+        btn.textContent = '🎙';
+        btn.addEventListener('click', () => toggleRecording(num));
+
+        row.appendChild(ta);
+        row.appendChild(btn);
+        block.appendChild(row);
+
+        const micHint = document.createElement('div');
+        micHint.className = 'mic-hint';
+        micHint.id = 'hint' + num;
+        block.appendChild(micHint);
+      }
+
       questionsDiv.appendChild(block);
     });
 
@@ -538,6 +819,117 @@
       activeRecorder.start();
     }
 
+    const DIFF_CLASS = { 'Просто': 'diff-easy', 'Средне': 'diff-medium', 'Сложно': 'diff-hard' };
+    const DIR_CLASS  = ['trigger', 'd2', 'd3', 'd4', 'd5'];
+
+    function el(tag, cls, text) {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text !== undefined) e.textContent = text;
+      return e;
+    }
+
+    function renderDiagnosis(d, container) {
+      // Предварительная пометка
+      if (d.preliminary) {
+        const note = el('div', 'conclusion-box');
+        note.textContent = '⚠️ Диагностика предварительная — бизнес на стадии запуска.';
+        note.style.marginBottom = '20px';
+        container.appendChild(note);
+      }
+
+      // Сводка — 3 карточки
+      const grid = el('div', 'summary-grid');
+      const summaryItems = [
+        { icon: '⏱', value: d.summary.hours_saved, label: 'Экономия времени' },
+        { icon: '🎯', value: d.summary.main_gain,   label: 'Главный выигрыш' },
+        { icon: '⚡', value: d.summary.quick_win,   label: 'Быстрый старт' },
+      ];
+      summaryItems.forEach(s => {
+        const card = el('div', 'summary-card');
+        card.appendChild(el('div', 's-icon', s.icon));
+        card.appendChild(el('div', 's-value', s.value));
+        card.appendChild(el('div', 's-label', s.label));
+        grid.appendChild(card);
+      });
+      container.appendChild(grid);
+
+      // Карточки направлений
+      d.directions.forEach((dir, idx) => {
+        const cls = 'direction-card ' + (dir.is_trigger ? 'trigger' : (DIR_CLASS[idx] || 'd2'));
+        const card = el('div', cls);
+
+        // Заголовок
+        const header = el('div', 'dir-header');
+        header.appendChild(el('div', 'dir-num', String(dir.num)));
+        header.appendChild(el('div', 'dir-title', dir.title));
+        const diffCls = DIFF_CLASS[dir.difficulty] || 'diff-medium';
+        header.appendChild(el('span', 'diff-badge ' + diffCls, dir.difficulty));
+        card.appendChild(header);
+
+        // Выигрыш
+        const gainBox = el('div', 'gain-box');
+        gainBox.appendChild(el('div', 'gain-label', '✅ Что вы получите'));
+        gainBox.appendChild(document.createTextNode(dir.client_gains));
+        card.appendChild(gainBox);
+
+        // Строки
+        const rows = el('div', 'dir-rows');
+        const rowData = [
+          ['Сейчас руками', dir.currently_manual],
+          ['Первый шаг',    dir.first_step],
+          ['Частая ловушка',dir.diy_trap],
+        ];
+        rowData.forEach(([label, val]) => {
+          const row = el('div', 'dir-row');
+          row.appendChild(el('span', 'row-label', label));
+          row.appendChild(document.createTextNode(val));
+          rows.appendChild(row);
+        });
+        card.appendChild(rows);
+
+        // Карточка продукта (триггер)
+        if (dir.product_card) {
+          const pc = dir.product_card;
+          const box = el('div', 'product-card-box');
+          box.appendChild(el('div', 'pc-title', '📌 ' + pc.title));
+          box.appendChild(el('p', null, pc.subtitle));
+          const ul = el('ul', null);
+          ul.style.cssText = 'margin: 8px 0 8px 16px; color: #bbb; font-size: 13px; line-height: 1.7';
+          pc.includes.forEach(item => {
+            const li = el('li', null, item);
+            ul.appendChild(li);
+          });
+          box.appendChild(ul);
+          const excl = el('p', null, '❌ Не входит: ' + pc.excludes);
+          excl.style.cssText = 'font-size: 12px; color: #666; margin-top: 6px';
+          box.appendChild(excl);
+          const dead = el('p', null, '🗓 Срок: ' + pc.deadline);
+          dead.style.cssText = 'font-size: 12px; color: #888; margin-top: 4px';
+          box.appendChild(dead);
+          card.appendChild(box);
+        }
+
+        container.appendChild(card);
+      });
+
+      // Вывод
+      const conc = el('div', 'conclusion-box', d.conclusion);
+      container.appendChild(conc);
+
+      // CTA — запись на созвон
+      const cta = el('div', 'cta-box');
+      cta.appendChild(el('h3', null, 'Хотите разобрать это для вашего бизнеса?'));
+      cta.appendChild(el('p', null, d.next_step || 'Запишитесь на бесплатный 30-минутный разбор — покажу, с чего начать именно в вашем случае.'));
+      const btn = document.createElement('a');
+      btn.className = 'btn-cta';
+      btn.href = 'https://calendly.com/n-yabonzhy/30min';
+      btn.target = '_blank';
+      btn.textContent = 'Записаться на разбор →';
+      cta.appendChild(btn);
+      container.appendChild(cta);
+    }
+
     // Submit
     async function submitForm() {
       const name  = document.getElementById('c-name').value.trim();
@@ -550,8 +942,20 @@
       }
 
       const answers = QUESTIONS.map((q, i) => {
-        const val = document.getElementById('q' + (i + 1)).value.trim();
-        return 'Вопрос ' + (i + 1) + ': ' + q + '\nОтвет: ' + (val || '(не заполнено)');
+        const num = i + 1;
+        let val;
+        if (q.type === 'chips') {
+          const selected = [...document.querySelectorAll('#chips' + num + ' .chip.selected')].map(c => c.dataset.value);
+          const otherEl = document.getElementById('q' + num + '_other');
+          if (otherEl && otherEl.value.trim() && selected.includes('Другое')) {
+            const idx = selected.indexOf('Другое');
+            selected[idx] = 'Другое: ' + otherEl.value.trim();
+          }
+          val = selected.join(', ') || '(не выбрано)';
+        } else {
+          val = document.getElementById('q' + num).value.trim() || '(не заполнено)';
+        }
+        return 'Вопрос ' + num + ': ' + q.text + '\nОтвет: ' + val;
       }).join('\n\n');
 
       const btn = document.getElementById('submit-btn');
@@ -598,26 +1002,42 @@
         }
 
         const data = await res.json();
-        const text = data.choices[0].message.content;
+        const raw = data.choices[0].message.content;
+        let diag;
+        try { diag = JSON.parse(raw); } catch(e) { diag = null; }
 
         resultContent.textContent = '';
-        const resultBox = document.createElement('div');
-        resultBox.className = 'result-box';
-        resultBox.textContent = text;
-        resultContent.appendChild(resultBox);
+
+        if (diag) {
+          renderDiagnosis(diag, resultContent);
+        } else {
+          const box = document.createElement('div');
+          box.className = 'conclusion-box';
+          box.textContent = raw;
+          resultContent.appendChild(box);
+        }
+
+        const text = raw;
 
         // Отправка в Google Sheets
+        function getAnswer(num) {
+          const q = QUESTIONS[num - 1];
+          if (q.type === 'chips') {
+            const selected = [...document.querySelectorAll('#chips' + num + ' .chip.selected')].map(c => c.dataset.value);
+            const otherEl = document.getElementById('q' + num + '_other');
+            if (otherEl && otherEl.value.trim() && selected.includes('Другое')) {
+              const idx = selected.indexOf('Другое');
+              selected[idx] = 'Другое: ' + otherEl.value.trim();
+            }
+            return selected.join(', ');
+          }
+          return document.getElementById('q' + num).value.trim();
+        }
         const rowData = {
           timestamp: new Date().toISOString(),
           name, phone, email,
-          q1:  document.getElementById('q1').value.trim(),
-          q2:  document.getElementById('q2').value.trim(),
-          q3:  document.getElementById('q3').value.trim(),
-          q4:  document.getElementById('q4').value.trim(),
-          q5:  document.getElementById('q5').value.trim(),
-          q6:  document.getElementById('q6').value.trim(),
-          q7:  document.getElementById('q7').value.trim(),
-          q8:  document.getElementById('q8').value.trim(),
+          q1: getAnswer(1), q2: getAnswer(2), q3: getAnswer(3), q4: getAnswer(4),
+          q5: getAnswer(5), q6: getAnswer(6), q7: getAnswer(7),
           diagnosis: text
         };
         fetch(SHEETS_URL, {
